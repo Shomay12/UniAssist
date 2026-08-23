@@ -1,0 +1,202 @@
+Academic Study Assistant — Project Introduction
+
+This project is an AI-powered Academic Study Assistant built using Retrieval-Augmented Generation (RAG).
+
+The main goal of the project is to create a study assistant that can answer academic questions using the student’s own study materials instead of relying only on the general knowledge of an LLM.
+
+The system will allow users to upload academic documents such as PDFs, notes, and other study materials. These documents will be processed, divided into meaningful chunks, converted into vector embeddings, and stored in a vector database. When the user asks a question, the system will retrieve the most relevant information from the stored academic material and provide that context to an LLM.
+
+The project will use Groq API for the LLM layer and Streamlit for the web interface.
+
+Technology Stack
+
+* Python
+* Streamlit
+* LangChain
+* Groq API
+* Sentence Transformers
+* FAISS
+* PyMuPDF
+* Python-dotenv
+
+Core RAG Pipeline
+
+Document → PDF Loader → Text Extraction → Text Cleaning → Chunking → Embeddings → FAISS Vector Store → Retrieval → Context Construction → Groq LLM → Answer + Sources
+
+Main Components
+
+1. Document Processing
+
+The system will initially support academic PDF documents.
+
+The document processing pipeline will:
+
+* Load PDF files
+* Extract text
+* Preserve page numbers
+* Clean extracted text
+* Split text into meaningful chunks
+* Attach metadata to each chunk
+
+Example metadata:
+
+document: ML_Unit_1.pdf
+subject: Machine Learning
+page: 12
+chunk_id: 37
+
+2. Embedding System
+
+Each document chunk will be converted into a numerical vector using a Sentence Transformers embedding model.
+
+The same embedding model will be used to convert user questions into vectors so that the system can compare the question with stored academic content.
+
+3. Vector Database
+
+FAISS will be used as the initial vector database.
+
+The system will:
+
+* Store document embeddings
+* Perform similarity search
+* Retrieve the most relevant chunks
+* Store and retrieve document metadata
+* Save and reload the vector index
+
+4. Retrieval System
+
+When the user asks a question:
+
+User Question → Query Embedding → FAISS Similarity Search → Top-K Relevant Chunks → Context
+
+The retrieved chunks will then be provided to the LLM.
+
+5. LLM
+
+The project will use the Groq API as the generation layer.
+
+The LLM will receive:
+
+* User question
+* Retrieved academic context
+* System instructions
+
+The model should answer using the retrieved academic material.
+
+If the required information cannot be found in the available context, the assistant should clearly state that the information was not found instead of inventing an answer.
+
+6. Streamlit Interface
+
+Streamlit will provide the web-based interface.
+
+The interface will include:
+
+* Chat interface
+* Question input
+* AI responses
+* PDF upload
+* Subject selection
+* Source display
+* Page references
+* Conversation history
+* Clear chat functionality
+
+Example workflow:
+
+User uploads ML_Unit_3.pdf.
+
+The system processes and indexes the document.
+
+The user asks:
+
+“Explain Random Forest.”
+
+The RAG system retrieves the relevant sections from the document and sends them to the Groq LLM.
+
+The assistant responds with an explanation and shows the source:
+
+ML_Unit_3.pdf — Page 24
+
+Academic Features
+
+The initial version will focus on:
+
+* Asking questions about study material
+* Explaining academic concepts
+* Summarizing material
+* Providing source citations
+* Showing page references
+* Maintaining conversation context
+* Organizing documents by subject
+
+Future features may include:
+
+* Generate MCQs
+* Generate practice questions
+* Generate flashcards
+* Generate revision notes
+* Beginner-level explanations
+* Detailed explanations
+* Exam preparation mode
+* Topic-wise revision
+
+Planned Advanced RAG Features
+
+After the basic RAG system is working, the project can be extended with:
+
+* Hybrid search
+* BM25 keyword retrieval
+* Query rewriting
+* Multi-query retrieval
+* Reranking
+* Metadata filtering
+* Context compression
+* Parent-document retrieval
+* Retrieval evaluation
+* Answer evaluation
+* Hallucination detection
+
+Development Roadmap
+
+The project will be developed incrementally.
+
+Phase 1 — Environment: Completed
+
+Phase 2 — Document Processing:
+PDF loading, text extraction, cleaning, chunking, and metadata.
+
+Phase 3 — Embeddings:
+Embedding model selection and document/query embedding generation.
+
+Phase 4 — Vector Store:
+FAISS index creation, storage, retrieval, and persistence.
+
+Phase 5 — Retrieval:
+Query embedding, similarity search, Top-K retrieval, and context construction.
+
+Phase 6 — Groq:
+Groq API integration, prompt construction, context injection, and answer generation.
+
+Phase 7 — Streamlit:
+Chat interface, document upload, answer display, and source citations.
+
+Phase 8 — Integration:
+Connect document upload, RAG retrieval, Groq generation, and Streamlit into one complete application.
+
+Phase 9 — Academic Features:
+Subject selection, chat history, summarization, quizzes, flashcards, and exam mode.
+
+Phase 10 — Advanced RAG:
+Hybrid retrieval, BM25, reranking, query rewriting, multi-query retrieval, and evaluation.
+
+Current Development Target
+
+The environment is already configured.
+
+The immediate development target is:
+
+PDF → Text Extraction → Cleaning → Chunking → Metadata
+
+The Streamlit interface and Groq integration will be added after the document-processing and retrieval foundations are working correctly.
+
+The ultimate goal is to build a reliable academic AI assistant that can answer questions based on the user’s study material while providing transparent sources and citations.

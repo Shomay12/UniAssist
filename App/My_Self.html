@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>QuAxiom — Building Things That Interest Me</title>
+
+    <meta
+        name="description"
+        content="Personal website of QuAxiom — exploring AI, software, systems, and whatever seems interesting enough to build."
+    >
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #f7fbf8;
+            --surface: #ffffff;
+            --surface-2: #edf7f1;
+            --text: #16352e;
+            --muted: #52736a;
+            --border: rgba(19,91,77,0.16);
+            --accent: #176b59;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family:
+                "Space Grotesk",
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                sans-serif;
+
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+
+            background:
+                linear-gradient(
+                    rgba(255,255,255,0.025) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    90deg,
+                    rgba(255,255,255,0.025) 1px,
+                    transparent 1px
+                );
+
+            background-size: 70px 70px;
+
+            mask-image: linear-gradient(
+                to bottom,
+                black,
+                transparent 75%
+            );
+
+            z-index: -1;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .container {
+            width: min(1120px, 90%);
+            margin: auto;
+        }
+
+        /* NAVIGATION */
+
+        nav {
+            height: 80px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo {
+            font-size: 17px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .logo span {
+            color: #777;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .nav-links a {
+            transition: 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--text);
+        }
+
+        .socials {
+            display: flex;
+            gap: 9px;
+        }
+
+        .social {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+
+            padding: 7px 11px;
+
+            font-size: 12px;
+            color: #b5b5bb;
+
+            transition: 0.2s;
+        }
+
+        .social:hover {
+            color: white;
+            border-color: rgba(255,255,255,0.25);
+            background: var(--surface);
+        }
+
+        /* HERO */
+
+        .hero {
+            min-height: 720px;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            position: relative;
+        }
+
+        .eyebrow {
+            color: #777;
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+
+            margin-bottom: 24px;
+        }
+
+        h1 {
+            max-width: 900px;
+
+            font-size: clamp(
+                54px,
+                9vw,
+                105px
+            );
+
+            line-height: 0.95;
+            letter-spacing: -6px;
+
+            font-weight: 700;
+        }
+
+        .hero h1 span {
+            color: #68686f;
+        }
+
+        .hero-description {
+            max-width: 600px;
+
+            margin-top: 35px;
+
+            color: var(--muted);
+            font-size: 17px;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 12px;
+
+            margin-top: 35px;
+        }
+
+        .button {
+            padding: 12px 18px;
+
+            border-radius: 9px;
+
+            border: 1px solid var(--border);
+
+            font-size: 13px;
+            font-weight: 600;
+
+            transition: 0.2s;
+        }
+
+        .button.primary {
+            background: white;
+            color: black;
+        }
+
+        .button.primary:hover {
+            transform: translateY(-2px);
+            opacity: 0.9;
+        }
+
+        .button.secondary {
+            color: #bbb;
+        }
+
+        .button.secondary:hover {
+            background: var(--surface);
+            color: white;
+        }
+
+        /* FLOATING NUMBER */
+
+        .hero-number {
+            position: absolute;
+            right: 0;
+            bottom: 100px;
+
+            font-size: 160px;
+            font-weight: 800;
+
+            color: rgba(255,255,255,0.025);
+
+            user-select: none;
+        }
+
+        /* SECTION */
+
+        section {
+            padding: 110px 0;
+            border-top: 1px solid var(--border);
+        }
+
+        .section-label {
+            color: #666;
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+
+            margin-bottom: 18px;
+        }
+
+        h2 {
+            font-size: clamp(32px, 5vw, 52px);
+            line-height: 1.05;
+
+            letter-spacing: -2.5px;
+        }
+
+        .section-description {
+            color: var(--muted);
+            max-width: 650px;
+
+            margin-top: 18px;
+        }
+
+        /* ABOUT */
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+
+            gap: 70px;
+
+            margin-top: 60px;
+        }
+
+        .about-text {
+            color: #b0b0b6;
+            font-size: 15px;
+        }
+
+        .about-text p + p {
+            margin-top: 20px;
+        }
+
+        .principles {
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+        }
+
+        .principle {
+            padding: 19px 0;
+
+            border-bottom: 1px solid var(--border);
+
+            display: flex;
+            justify-content: space-between;
+
+            color: #aaa;
+            font-size: 13px;
+        }
+
+        .principle span {
+            color: #555;
+        }
+
+        /* INTERESTS */
+
+        .interest-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+
+            gap: 12px;
+
+            margin-top: 50px;
+        }
+
+        .interest {
+            min-height: 190px;
+
+            padding: 24px;
+
+            background: var(--surface);
+
+            border: 1px solid var(--border);
+            border-radius: 13px;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+            transition: 0.25s;
+        }
+
+        .interest:hover {
+            transform: translateY(-4px);
+            border-color: rgba(255,255,255,0.2);
+        }
+
+        .interest-number {
+            color: #555;
+            font-size: 11px;
+        }
+
+        .interest h3 {
+            font-size: 19px;
+            letter-spacing: -0.5px;
+        }
+
+        .interest p {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        /* PROJECTS */
+
+        .projects {
+            margin-top: 50px;
+
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project {
+            padding: 30px 0;
+
+            border-top: 1px solid var(--border);
+
+            display: grid;
+            grid-template-columns: 80px 1fr 120px;
+
+            gap: 20px;
+
+            align-items: center;
+
+            transition: 0.2s;
+        }
+
+        .project:last-child {
+            border-bottom: 1px solid var(--border);
+        }
+
+        .project:hover {
+            padding-left: 10px;
+        }
+
+        .project-number {
+            color: #555;
+            font-size: 12px;
+        }
+
+        .project h3 {
+            font-size: 20px;
+            letter-spacing: -0.7px;
+        }
+
+        .project p {
+            color: var(--muted);
+            font-size: 13px;
+
+            margin-top: 5px;
+        }
+
+        .project-type {
+            text-align: right;
+
+            color: #666;
+
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* STACK */
+
+        .stack {
+            display: flex;
+            flex-wrap: wrap;
+
+            gap: 8px;
+
+            margin-top: 45px;
+        }
+
+        .tag {
+            padding: 9px 13px;
+
+            border: 1px solid var(--border);
+            border-radius: 7px;
+
+            background: var(--surface);
+
+            color: #aaa;
+            font-size: 12px;
+        }
+
+        /* PHILOSOPHY */
+
+        .quote {
+            margin-top: 55px;
+
+            max-width: 850px;
+
+            font-size: clamp(
+                27px,
+                4vw,
+                45px
+            );
+
+            line-height: 1.15;
+
+            letter-spacing: -1.7px;
+
+            color: #d7d7db;
+        }
+
+        .quote span {
+            color: #555;
+        }
+
+        /* SOCIAL */
+
+        .social-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+
+            gap: 12px;
+
+            margin-top: 50px;
+        }
+
+        .social-card {
+            padding: 30px;
+
+            border: 1px solid var(--border);
+            border-radius: 13px;
+
+            background: var(--surface);
+
+            transition: 0.25s;
+        }
+
+        .social-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(255,255,255,0.2);
+        }
+
+        .social-card-label {
+            color: #555;
+            font-size: 11px;
+
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .social-card h3 {
+            margin-top: 20px;
+
+            font-size: 22px;
+        }
+
+        .social-card p {
+            margin-top: 8px;
+
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .social-card .arrow {
+            display: block;
+
+            margin-top: 30px;
+
+            color: #aaa;
+            font-size: 13px;
+        }
+
+        /* FOOTER */
+
+        footer {
+            border-top: 1px solid var(--border);
+
+            padding: 35px 0;
+
+            color: #555;
+            font-size: 12px;
+        }
+
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 800px) {
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                min-height: 650px;
+            }
+
+            h1 {
+                letter-spacing: -3px;
+            }
+
+            .hero-number {
+                display: none;
+            }
+
+            .about-grid,
+            .social-section {
+                grid-template-columns: 1fr;
+            }
+
+            .interest-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .project {
+                grid-template-columns: 50px 1fr;
+            }
+
+            .project-type {
+                display: none;
+            }
+        }
+
+        @media (max-width: 500px) {
+
+            .socials {
+                display: none;
+            }
+
+            .hero-actions {
+                flex-direction: column;
+            }
+
+            .button {
+                text-align: center;
+            }
+
+            section {
+                padding: 80px 0;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+                gap: 8px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- NAV -->
+
+    <nav>
+
+        <a href="#" class="logo">
+            QuAxiom-AKA Shomay Singh Parihar<span>.</span>
+        </a>
+
+        <div class="socials">
+
+            <a
+                href="https://github.com/Shomay12"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="social"
+            >
+                GitHub
+            </a>
+
+            <a
+                href="https://x.com/KJshomayyy"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="social"
+            >
+                X
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- HERO -->
+
+    <header class="hero">
+
+        <div class="eyebrow">
+            Student · Builder · Curious Human
+        </div>
+
+        <h1>
+            I build things
+            <span>because they seem interesting.</span>
+        </h1>
+
+        <p class="hero-description">
+            Exploring artificial intelligence, machine learning,
+            software, systems, and the strange intersection between
+            ideas and things that actually work.
+        </p>
+
+        <div class="hero-actions">
+
+            <a
+                href="https://github.com/Shomay12"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="button primary"
+            >
+                View GitHub
+            </a>
+
+            <a
+                href="https://x.com/KJshomayyy"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="button secondary"
+            >
+                Find me on X
+            </a>
+
+        </div>
+
+        <div class="hero-number">
+            01
+        </div>
+
+    </header>
+
+
+    <!-- ABOUT -->
+
+    <section id="about">
+
+        <div class="section-label">
+            About
+        </div>
+
+        <h2>
+            Still figuring things out.
+            <br>
+            Building along the way.
+        </h2>
+
+        <div class="about-grid">
+
+            <div class="about-text">
+
+                <p>
+                    I'm interested in understanding how things work
+                    rather than simply learning how to use them.
+                </p>
+
+                <p>
+                    Most of my time goes into AI/ML, software
+                    engineering, experimentation, and building
+                    projects that force me to learn something new.
+                </p>
+
+                <p>
+                    I like the process more than having everything
+                    figured out beforehand.
+                </p>
+
+            </div>
+
+
+            <div class="principles">
+
+                <div class="principle">
+                    Learn <span>01</span>
+                </div>
+
+                <div class="principle">
+                    Build <span>02</span>
+                </div>
+
+                <div class="principle">
+                    Break things <span>03</span>
+                </div>
+
+                <div class="principle">
+                    Understand why <span>04</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- INTERESTS -->
+
+    <section id="interests">
+
+        <div class="section-label">
+            Interests
+        </div>
+
+        <h2>
+            Things that keep me curious.
+        </h2>
+
+        <div class="interest-grid">
+
+            <article class="interest">
+
+                <div class="interest-number">
+                    01
+                </div>
+
+                <div>
+                    <h3>Artificial Intelligence</h3>
+
+                    <p>
+                        Machine learning, deep learning,
+                        generative AI, RAG and intelligent systems.
+                    </p>
+                </div>
+
+            </article>
+
+
+            <article class="interest">
+
+                <div class="interest-number">
+                    02
+                </div>
+
+                <div>
+                    <h3>Software</h3>
+
+                    <p>
+                        Building applications, backend systems,
+                        automation and products from scratch.
+                    </p>
+                </div>
+
+            </article>
+
+
+            <article class="interest">
+
+                <div class="interest-number">
+                    03
+                </div>
+
+                <div>
+                    <h3>Systems</h3>
+
+                    <p>
+                        Operating systems, infrastructure,
+                        architecture and understanding what happens
+                        underneath the abstraction.
+                    </p>
+                </div>
+
+            </article>
+
+        </div>
+
+    </section>
+
+
+    <!-- PROJECTS -->
+
+    <section id="projects">
+
+        <div class="section-label">
+            Projects
+        </div>
+
+        <h2>
+            Things I'm building.
+        </h2>
+
+        <p class="section-description">
+            A collection of experiments, products and ideas that
+            turned into something I could actually run.
+        </p>
+
+
+        <div class="projects">
+
+            <a href="#" class="project">
+
+                <div class="project-number">
+                    01
+                </div>
+
+                <div>
+                    <h3>Academic RAG Study Assistant</h3>
+
+                    <p>
+                        A retrieval-augmented study assistant that
+                        answers questions using academic material.
+                    </p>
+                </div>
+
+                <div class="project-type">
+                    AI / RAG
+                </div>
+
+            </a>
+
+
+            <a href="#" class="project">
+
+                <div class="project-number">
+                    02
+                </div>
+
+                <div>
+                    <h3>AI Experiments</h3>
+
+                    <p>
+                        Small experiments exploring machine learning,
+                        generative AI and intelligent applications.
+                    </p>
+                </div>
+
+                <div class="project-type">
+                    Research
+                </div>
+
+            </a>
+
+
+            <a href="#" class="project">
+
+                <div class="project-number">
+                    03
+                </div>
+
+                <div>
+                    <h3>Software & Automation</h3>
+
+                    <p>
+                        Applications and automation systems built to
+                        solve real problems.
+                    </p>
+                </div>
+
+                <div class="project-type">
+                    Software
+                </div>
+
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- STACK -->
+
+    <section>
+
+        <div class="section-label">
+            Current toolbox
+        </div>
+
+        <h2>
+            Technologies I like working with.
+        </h2>
+
+        <div class="stack">
+
+            <span class="tag">Python</span>
+            <span class="tag">Java</span>
+            <span class="tag">Machine Learning</span>
+            <span class="tag">Deep Learning</span>
+            <span class="tag">Generative AI</span>
+            <span class="tag">RAG</span>
+            <span class="tag">LangChain</span>
+            <span class="tag">ChromaDB</span>
+            <span class="tag">Streamlit</span>
+            <span class="tag">Docker</span>
+            <span class="tag">Node.js</span>
+            <span class="tag">PostgreSQL</span>
+            <span class="tag">Git</span>
+            <span class="tag">Linux</span>
+
+        </div>
+
+    </section>
+
+
+    <!-- PHILOSOPHY -->
+
+    <section>
+
+        <div class="section-label">
+            Philosophy
+        </div>
+
+        <div class="quote">
+            "The fun part isn't knowing everything.
+            <span>
+                It's finding something you don't understand
+                and refusing to leave it that way.
+            </span>"
+        </div>
+
+    </section>
+
+
+    <!-- CONNECT -->
+
+    <section id="connect">
+
+        <div class="section-label">
+            Connect
+        </div>
+
+        <h2>
+            Find me somewhere on the internet.
+        </h2>
+
+        <div class="social-section">
+
+            <a
+                href="https://github.com/Shomay12"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="social-card"
+            >
+
+                <div class="social-card-label">
+                    Code
+                </div>
+
+                <h3>
+                    GitHub
+                </h3>
+
+                <p>
+                    Projects, experiments and things I'm currently
+                    building.
+                </p>
+
+                <span class="arrow">
+                    github.com/Shomay12 →
+                </span>
+
+            </a>
+
+
+            <a
+                href="https://x.com/KJshomayyy"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="social-card"
+            >
+
+                <div class="social-card-label">
+                    Thoughts
+                </div>
+
+                <h3>
+                    X
+                </h3>
+
+                <p>
+                    Random thoughts, ideas, technology and whatever
+                    happens to be interesting.
+                </p>
+
+                <span class="arrow">
+                    x.com/KJshomayyy →
+                </span>
+
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <div class="footer-inner">
+
+            <div>
+                QuAxiom
+            </div>
+
+            <div>
+                Built while figuring things out.
+            </div>
+
+        </div>
+
+    </footer>
+
+</div>
+
+</body>
+</html>
