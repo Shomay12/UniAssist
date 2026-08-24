@@ -1,0 +1,12 @@
+[theme]
+primaryColor = "#176b59"
+backgroundColor = "#f5faf7"
+secondaryBackgroundColor = "#eaf5f0"
+textColor = "#16352e"
+font = "sans serif"
+
+[server]
+headless = true
+enableCORS = false
+enableXsrfProtection = false
+fileWatcherType = "poll"

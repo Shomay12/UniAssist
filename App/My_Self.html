@@ -30,6 +30,7 @@
             --muted: #52736a;
             --border: rgba(19,91,77,0.16);
             --accent: #176b59;
+            --accent-hover: #21816a;
         }
 
         html {
@@ -135,18 +136,25 @@
             border: 1px solid var(--border);
             border-radius: 8px;
 
-            padding: 7px 11px;
+            padding: 7px 12px;
 
             font-size: 12px;
-            color: #b5b5bb;
+            font-weight: 500;
+            color: var(--muted);
+            background: var(--surface);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
 
             transition: 0.2s;
         }
 
         .social:hover {
-            color: white;
-            border-color: rgba(255,255,255,0.25);
-            background: var(--surface);
+            color: var(--accent);
+            border-color: var(--accent);
+            background: var(--surface-2);
         }
 
         /* HERO */
@@ -201,12 +209,13 @@
         .hero-actions {
             display: flex;
             gap: 12px;
+            flex-wrap: wrap;
 
             margin-top: 35px;
         }
 
         .button {
-            padding: 12px 18px;
+            padding: 12px 20px;
 
             border-radius: 9px;
 
@@ -214,27 +223,39 @@
 
             font-size: 13px;
             font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
 
-            transition: 0.2s;
+            transition: 0.2s ease;
         }
 
         .button.primary {
-            background: white;
-            color: black;
+            background: var(--accent);
+            color: #ffffff;
+            border-color: var(--accent);
         }
 
         .button.primary:hover {
+            background: var(--accent-hover);
+            border-color: var(--accent-hover);
             transform: translateY(-2px);
-            opacity: 0.9;
+            box-shadow: 0 4px 12px rgba(23, 107, 89, 0.2);
         }
 
         .button.secondary {
-            color: #bbb;
+            background: var(--surface);
+            color: var(--text);
+            border-color: var(--border);
         }
 
         .button.secondary:hover {
-            background: var(--surface);
-            color: white;
+            background: var(--surface-2);
+            color: var(--accent);
+            border-color: var(--accent);
+            transform: translateY(-2px);
         }
 
         /* FLOATING NUMBER */
@@ -294,8 +315,9 @@
         }
 
         .about-text {
-            color: #b0b0b6;
+            color: var(--text);
             font-size: 15px;
+            line-height: 1.7;
         }
 
         .about-text p + p {
@@ -316,12 +338,14 @@
             display: flex;
             justify-content: space-between;
 
-            color: #aaa;
+            color: var(--text);
             font-size: 13px;
+            font-weight: 500;
         }
 
         .principle span {
-            color: #555;
+            color: var(--muted);
+            font-family: 'IBM Plex Mono', monospace;
         }
 
         /* INTERESTS */
@@ -450,8 +474,9 @@
 
             background: var(--surface);
 
-            color: #aaa;
+            color: var(--text);
             font-size: 12px;
+            font-weight: 500;
         }
 
         /* PHILOSOPHY */
@@ -471,52 +496,57 @@
 
             letter-spacing: -1.7px;
 
-            color: #d7d7db;
+            color: var(--text);
         }
 
         .quote span {
-            color: #555;
+            color: var(--muted);
         }
 
         /* SOCIAL */
 
         .social-section {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(3, 1fr);
 
-            gap: 12px;
+            gap: 14px;
 
             margin-top: 50px;
         }
 
         .social-card {
-            padding: 30px;
+            padding: 28px;
 
             border: 1px solid var(--border);
             border-radius: 13px;
 
             background: var(--surface);
+            cursor: pointer;
+            text-decoration: none;
 
             transition: 0.25s;
         }
 
         .social-card:hover {
             transform: translateY(-3px);
-            border-color: rgba(255,255,255,0.2);
+            border-color: var(--accent);
+            box-shadow: 0 8px 24px rgba(19, 91, 77, 0.08);
         }
 
         .social-card-label {
-            color: #555;
+            color: var(--muted);
             font-size: 11px;
 
             text-transform: uppercase;
             letter-spacing: 1.5px;
+            font-weight: 600;
         }
 
         .social-card h3 {
-            margin-top: 20px;
+            margin-top: 18px;
 
-            font-size: 22px;
+            font-size: 20px;
+            color: var(--text);
         }
 
         .social-card p {
@@ -524,15 +554,17 @@
 
             color: var(--muted);
             font-size: 13px;
+            line-height: 1.5;
         }
 
         .social-card .arrow {
             display: block;
 
-            margin-top: 30px;
+            margin-top: 24px;
 
-            color: #aaa;
+            color: var(--accent);
             font-size: 13px;
+            font-weight: 600;
         }
 
         /* FOOTER */
@@ -630,6 +662,15 @@
         <div class="socials">
 
             <a
+                href="https://shomay12.github.io/Personal_web/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="social"
+            >
+                Personal Web
+            </a>
+
+            <a
                 href="https://github.com/Shomay12"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -674,10 +715,19 @@
         <div class="hero-actions">
 
             <a
-                href="https://github.com/Shomay12"
+                href="https://shomay12.github.io/Personal_web/"
                 target="_blank"
                 rel="noopener noreferrer"
                 class="button primary"
+            >
+                Visit Profile Website
+            </a>
+
+            <a
+                href="https://github.com/Shomay12"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="button secondary"
             >
                 View GitHub
             </a>
@@ -991,6 +1041,33 @@
         </h2>
 
         <div class="social-section">
+
+            <a
+                href="https://shomay12.github.io/Personal_web/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="social-card"
+            >
+
+                <div class="social-card-label">
+                    Profile
+                </div>
+
+                <h3>
+                    Personal Website
+                </h3>
+
+                <p>
+                    Explore my personal web space, background, interactive
+                    showcases, and side projects.
+                </p>
+
+                <span class="arrow">
+                    shomay12.github.io/Personal_web →
+                </span>
+
+            </a>
+
 
             <a
                 href="https://github.com/Shomay12"

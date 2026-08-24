@@ -9,3 +9,7 @@ __pycache__/
 Notebook/chroma_db/
 **/chroma_db/
 
+# Local User Data (Accounts and Chat Cache)
+App/user_data/
+**/user_data/
+*.tmp
