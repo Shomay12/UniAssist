@@ -5,3 +5,8 @@ __pycache__/
 *.pyc
 .DS_Store
 .streamlit/secrets.toml
+# Chroma / Vector DB
+Data/vector_store/
+Notebook/chroma_db/
+**/chroma_db/
+*.sqlite3
