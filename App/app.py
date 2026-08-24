@@ -136,6 +136,36 @@ def inject_styles() -> None:
 		.nav-link:hover { color: #8de0c1 !important; }
 		.about-text { color: #d7f0e5 !important; font-family: 'Space Grotesk', sans-serif; font-size: 12px; line-height: 1.6; }
 		
+		/* Sidebar Page Navigation Buttons */
+		.sidebar-nav-btn .stButton { margin-bottom: 2px !important; }
+		.sidebar-nav-btn .stButton button {
+			background: transparent !important;
+			border: none !important;
+			border-bottom: 1px solid #2d6658 !important;
+			color: #effaf4 !important;
+			text-align: left !important;
+			justify-content: flex-start !important;
+			padding: 8px 0 !important;
+			border-radius: 0 !important;
+			font-family: 'Space Grotesk', sans-serif !important;
+			font-size: 13px !important;
+			font-weight: 500 !important;
+			box-shadow: none !important;
+			width: 100% !important;
+			transition: all 0.2s ease !important;
+		}
+		.sidebar-nav-btn .stButton button:hover {
+			background: transparent !important;
+			border-bottom-color: #8de0c1 !important;
+			color: #8de0c1 !important;
+			transform: none !important;
+		}
+		.sidebar-nav-btn .stButton button div,
+		.sidebar-nav-btn .stButton button p {
+			text-align: left !important;
+			justify-content: flex-start !important;
+		}
+		
 		/* CHATGPT-STYLE CHAT HISTORY SECTION IN SIDEBAR */
 		.sidebar-history-container {
 			border-top: 1px solid #2d6658;
@@ -353,7 +383,9 @@ def show_html_page(page_name: str) -> None:
 	col_btn, _ = st.columns([1, 4])
 	with col_btn:
 		if st.button("← Back to chat", key="back_to_chat_btn"):
-			st.query_params.clear()
+			st.query_params["page"] = "chat"
+			if st.session_state.access_token:
+				st.query_params["session_token"] = st.session_state.access_token
 			st.rerun()
 
 	components.html(page_file.read_text(encoding="utf-8"), height=3000, scrolling=True)
@@ -399,6 +431,10 @@ current_user = st.session_state.user
 user_id = current_user["id"]
 client = get_authenticated_client(st.session_state.access_token)
 
+# Maintain active session token in query params
+if st.session_state.access_token:
+	st.query_params["session_token"] = st.session_state.access_token
+
 # Navigation
 current_page = st.query_params.get("page", "chat")
 
@@ -435,8 +471,19 @@ with st.sidebar:
 
 	# Pages navigation
 	st.markdown("<p class='sidebar-label'>Pages</p>", unsafe_allow_html=True)
-	st.markdown("<a class='nav-link' href='?page=study' target='_self'>Study page →</a>", unsafe_allow_html=True)
-	st.markdown("<a class='nav-link' href='?page=about' target='_self'>About Me →</a>", unsafe_allow_html=True)
+	st.markdown("<div class='sidebar-nav-btn'>", unsafe_allow_html=True)
+	if st.button("Study page →", key="btn_side_page_study", use_container_width=True):
+		st.query_params["page"] = "study"
+		if st.session_state.access_token:
+			st.query_params["session_token"] = st.session_state.access_token
+		st.rerun()
+
+	if st.button("About Me →", key="btn_side_page_about", use_container_width=True):
+		st.query_params["page"] = "about"
+		if st.session_state.access_token:
+			st.query_params["session_token"] = st.session_state.access_token
+		st.rerun()
+	st.markdown("</div>", unsafe_allow_html=True)
 
 	with st.expander("I am"):
 		st.markdown(
