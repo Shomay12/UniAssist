@@ -41,20 +41,44 @@ class RAGPipeline:
 
 		self.embedding_model = SentenceTransformer(model_name)
 		self.client = chromadb.PersistentClient(path=str(persist_directory))
-		self.collection = self.client.get_collection(name=collection_name)
+		try:
+			self.collection = self.client.get_collection(name=collection_name)
+		except Exception:
+			self.collection = self.client.get_or_create_collection(name=collection_name)
 		self.model_name = model_name
 		self.llm = self._create_llm()
 
 	def _create_llm(self) -> Any:
-		api_key = os.getenv("GROQ_API_KEY")
+		api_key = os.getenv("GROQ_API_KEY", "")
+		if not api_key:
+			try:
+				import streamlit as st
+
+				if hasattr(st, "secrets") and "GROQ_API_KEY" in st.secrets:
+					api_key = str(st.secrets["GROQ_API_KEY"])
+			except Exception:
+				pass
+
 		if not api_key:
 			return None
+
+		groq_model = os.getenv("GROQ_MODEL", "")
+		if not groq_model:
+			try:
+				import streamlit as st
+
+				if hasattr(st, "secrets") and "GROQ_MODEL" in st.secrets:
+					groq_model = str(st.secrets["GROQ_MODEL"])
+			except Exception:
+				pass
+		if not groq_model:
+			groq_model = "openai/gpt-oss-120b"
 
 		from langchain_groq import ChatGroq
 
 		return ChatGroq(
 			groq_api_key=api_key,
-			model_name=os.getenv("GROQ_MODEL", "openai/gpt-oss-120b"),
+			model_name=groq_model,
 			temperature=0.1,
 			max_tokens=1024,
 		)
