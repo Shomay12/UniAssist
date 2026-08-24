@@ -101,6 +101,7 @@ def inject_styles() -> None:
 def reset_chat() -> None:
 	st.session_state.messages = []
 	st.session_state.pop("last_error", None)
+	st.cache_resource.clear()
 
 
 def show_html_page(page_name: str) -> None:
